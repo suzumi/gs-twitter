@@ -41,13 +41,13 @@ object TwitterResearch {
 
     val tokens = for (rl <- gsRetweets) yield tokenizer.tokenize(rl.getText)
 
-    tokens.foreach { x =>
-      val sorted = x.filter(x => x.getPartOfSpeech.startsWith("名詞")).groupBy(x => x.getBaseForm).values.toList.sortWith(_.length>_.length)
-//      println(sorted)
-      sorted.foreach { x =>
-        x.filter(x => x.getPartOfSpeech.startsWith("名詞")).groupBy(x => x.getBaseForm).values.toList.sortWith(_.length>_.length)
-      }
+    val tweets = tokens.flatMap { x =>
+      x.filter(x => x.getPartOfSpeech.startsWith("名詞")).groupBy(x => x.getBaseForm).values.toList.sortWith(_.length>_.length)
+//      sorted.foreach { x =>
+//        println("count: " +x.length+" "+x(0).getBaseForm())
+//      }
     }
+    println(tweets)
 
 //    for (rl <- gsRetweets) {
 //
