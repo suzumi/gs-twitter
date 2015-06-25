@@ -47,7 +47,11 @@ object TwitterResearch {
 //        println("count: " +x.length+" "+x(0).getBaseForm())
 //      }
     }
-    println(tweets)
+    val sorted = tweets.flatten.filter(x => x.getPartOfSpeech.startsWith("名詞")).groupBy(x => x.getBaseForm).values.toList.sortWith(_.length>_.length)
+
+    sorted.foreach { x =>
+      println("count: " +x.length+" "+x(0).getBaseForm())
+    }
 
 //    for (rl <- gsRetweets) {
 //
