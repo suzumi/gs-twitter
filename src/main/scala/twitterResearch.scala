@@ -1,5 +1,4 @@
 import org.atilika.kuromoji.Tokenizer
-import org.atilika.kuromoji.Token
 import twitter4j._
 import twitter4j.conf._
 import scala.collection.JavaConversions._
@@ -43,32 +42,15 @@ object TwitterResearch {
 
     val tweets = tokens.flatMap { x =>
       x.filter(x => x.getPartOfSpeech.startsWith("名詞")).groupBy(x => x.getBaseForm).values.toList.sortWith(_.length>_.length)
-//      sorted.foreach { x =>
-//        println("count: " +x.length+" "+x(0).getBaseForm())
-//      }
     }
     val sorted = tweets.flatten.filter(x => x.getPartOfSpeech.startsWith("名詞")).groupBy(x => x.getBaseForm).values.toList.sortWith(_.length>_.length)
 
     sorted.foreach { x =>
-      println("count: " +x.length+" "+x(0).getBaseForm())
+      x match {
+        case x if (x(0).getBaseForm() == null) =>
+        case x => println("count: " +x.length+" "+x(0).getBaseForm())
+      }
     }
-
-//    for (rl <- gsRetweets) {
-//
-//      val tokens = tokenizer.tokenize(rl.getText)
-//
-//      val sorted = tokens.filter(x => x.getPartOfSpeech.startsWith("名詞")).groupBy(x => x.getBaseForm).values.toList.sortWith(_.length>_.length)
-//
-//      sorted.foreach { x =>
-//        println("count: " +x.length+" "+x(0).getBaseForm())
-//      }
-//    }
-
-
-//      tokens.foreach { t =>
-//        val token = t.asInstanceOf[Token]
-//        println(s"${token.getSurfaceForm} - ${token.getAllFeatures}")
-//      }
 
   }
 
@@ -80,8 +62,5 @@ object TwitterResearch {
     val userName = "Girls_Sense"
     val gsRetweets = getTwitter(userName)
     tweetAnalysis(gsRetweets)
-//    println(gsRetweets)
-//    tweetAnalysis(gsRetweets)
-//    tweetAnalysis()
   }
 }
