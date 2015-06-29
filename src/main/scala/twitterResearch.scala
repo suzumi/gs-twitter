@@ -3,8 +3,6 @@ import twitter4j._
 import twitter4j.conf._
 import scala.collection.JavaConversions._
 
-
-
 /**
  * Girls Senseのつぶやきを形態素解析し、どのワードを含むとリツイートされやすいか統計を取る
  */
@@ -40,10 +38,7 @@ object TwitterResearch {
 
     val tokens = for (rl <- gsRetweets) yield tokenizer.tokenize(rl.getText)
 
-    val tweets = tokens.flatMap { x =>
-      x.filter(x => x.getPartOfSpeech.startsWith("名詞")).groupBy(x => x.getBaseForm).values.toList.sortWith(_.length>_.length)
-    }
-    val sorted = tweets.flatten.filter(x => x.getPartOfSpeech.startsWith("名詞")).groupBy(x => x.getBaseForm).values.toList.sortWith(_.length>_.length)
+    val sorted = tokens.flatten.filter(x => x.getPartOfSpeech.startsWith("名詞")).groupBy(x => x.getBaseForm).values.toList.sortWith(_.length>_.length)
 
     sorted.foreach { x =>
       x match {
