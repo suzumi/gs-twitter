@@ -16,10 +16,10 @@ object TwitterResearch {
   def getTwitter(userName: String): ResponseList[Status] = {
     val cb = new ConfigurationBuilder
     // GSのAPIキー
-    cb.setOAuthConsumerKey("dC9AyyxFfvuE2hrLTmKo6jK42")
-      .setOAuthConsumerSecret("TdpOfIuUy9XxODzml0v0BGgascymxXS33MrG4EJL1eIP4jYnbu")
-      .setOAuthAccessToken("2179238514-WmsFHyywLResYXYcOHBuMCb5L9t0yohw31sszFI")
-      .setOAuthAccessTokenSecret("W4tVJ1p3uIOvE6fkCEDdeNvdjk1sXSq838tlaTIErX1Oo")
+    cb.setOAuthConsumerKey("your key")
+      .setOAuthConsumerSecret("your key")
+      .setOAuthAccessToken("your key")
+      .setOAuthAccessTokenSecret("your key")
 
     val twitterFactory = new TwitterFactory(cb.build)
     val tt = twitterFactory.getInstance
